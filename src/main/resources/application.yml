@@ -1,0 +1,11 @@
+server:
+ servlet:
+    context-path: /produdoro/api
+    
+spring:
+  data:
+    mongodb:
+       authentication-database: admin
+       uri: ${MONGO_DB_URI:mongodb+srv://janebeatriz26_db_user:vggzil9fnydxjhfx@wakanda.jcj9jrr.mongodb.net/wakanda?appName=Wakanda}
+       auto-index-creation: true
+       
