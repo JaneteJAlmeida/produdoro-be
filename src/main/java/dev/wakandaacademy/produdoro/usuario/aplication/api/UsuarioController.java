@@ -2,9 +2,11 @@ package dev.wakandaacademy.produdoro.usuario.aplication.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/v1/usuario")
 public class UsuarioController implements UsuarioAPI {
 
     private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);

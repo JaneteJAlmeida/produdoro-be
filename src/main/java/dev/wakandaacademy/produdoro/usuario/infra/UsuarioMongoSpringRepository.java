@@ -5,4 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.UUID;
 
 public interface UsuarioMongoSpringRepository extends MongoRepository<Usuario, UUID> {
+    Usuario save(Usuario usuario);
 }

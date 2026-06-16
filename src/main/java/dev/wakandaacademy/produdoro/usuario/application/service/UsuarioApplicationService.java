@@ -9,6 +9,7 @@ import dev.wakandaacademy.produdoro.credencial.application.service.CredencialApp
 import dev.wakandaacademy.produdoro.usuario.domain.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +19,8 @@ public class UsuarioApplicationService implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final CredencialApplicationService credencialService;
 
-    public UsuarioApplicationService(UsuarioRepository usuarioRepository, CredencialApplicationService credencialService) {
+    // Construtor ajustado com Qualifier e inicialização obrigatória
+    public UsuarioApplicationService(@Qualifier("usuarioRepositoryMongoDB") UsuarioRepository usuarioRepository, CredencialApplicationService credencialService) {
         this.usuarioRepository = usuarioRepository;
         this.credencialService = credencialService;
     }
@@ -28,18 +30,16 @@ public class UsuarioApplicationService implements UsuarioService {
         log.info("[inicia] UsuarioApplicationService - criaNovoUsuario");
 
         var configuracaoPadrao = getConfiguracaoPadrao();
-
         credencialService.criaNovaCredencial(usuarioNovoRequest);
 
         var usuario = new Usuario(usuarioNovoRequest, configuracaoPadrao);
-
         usuarioRepository.salva(usuario);
 
         log.info("[finaliza] UsuarioApplicationService - criaNovoUsuario");
         return new UsuarioCriadoResponse(usuario.getIdUsuario(), usuario.getEmail());
     }
+
     private ConfiguracaoPadrao getConfiguracaoPadrao() {
-        ConfiguracaoPadrao configuracaoPadrao = new ConfiguracaoPadrao(25, 5, 15, 3);
-        return configuracaoPadrao;
+        return new ConfiguracaoPadrao(25, 5, 15, 3);
     }
 }
